@@ -1,66 +1,249 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Berkay Apps</title>
+    <meta name="description" content="Berkay Apps tarafından geliştirilen mobil oyunlar. Eğlenceli ve bağımlılık yapan deneyimler.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0f172a;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0f1a;
             color: #f8fafc;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            margin: 0;
+            padding: 40px 20px;
+            background-image:
+                radial-gradient(ellipse at 20% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(168, 85, 247, 0.08) 0%, transparent 50%);
+        }
+
+        header {
             text-align: center;
+            margin-bottom: 60px;
         }
+
         h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: #38bdf8;
-            text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            letter-spacing: -1px;
         }
-        p {
-            font-size: 1.2rem;
-            color: #94a3b8;
-            max-width: 600px;
-            margin-bottom: 2rem;
+
+        header p {
+            font-size: 1.1rem;
+            color: #64748b;
+            max-width: 500px;
+            margin: 0 auto;
         }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            width: 100%;
+            max-width: 720px;
+        }
+
         .app-card {
-            background-color: #1e293b;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            border: 1px solid #334155;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: linear-gradient(145deg, #111827, #1e293b);
+            padding: 32px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
         }
+
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-color, #38bdf8), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
         .app-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(56, 189, 248, 0.2);
-            border-color: #38bdf8;
+            transform: translateY(-6px);
+            box-shadow: 0 20px 48px rgba(0, 0, 0, 0.5);
+            border-color: var(--accent-color, #38bdf8);
         }
+
+        .app-card:hover::before {
+            opacity: 1;
+        }
+
+        .app-card.trick-shot {
+            --accent-color: #38bdf8;
+        }
+
+        .app-card.rehin {
+            --accent-color: #d4a04a;
+            background: linear-gradient(145deg, #120e08, #1c1309);
+            border-color: rgba(212, 160, 74, 0.15);
+        }
+
+        .app-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .trick-shot .app-icon {
+            background: linear-gradient(135deg, #0ea5e9, #6366f1);
+            box-shadow: 0 4px 16px rgba(56, 189, 248, 0.3);
+        }
+
+        .rehin .app-icon {
+            background: linear-gradient(135deg, #92400e, #d97706);
+            box-shadow: 0 4px 16px rgba(212, 160, 74, 0.3);
+        }
+
+        .app-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+
+        .trick-shot .app-badge {
+            background: rgba(56, 189, 248, 0.1);
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        .rehin .app-badge {
+            background: rgba(212, 160, 74, 0.1);
+            color: #d4a04a;
+            border: 1px solid rgba(212, 160, 74, 0.2);
+        }
+
         .app-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
             color: #e2e8f0;
+            letter-spacing: -0.3px;
         }
+
         .app-desc {
-            color: #cbd5e1;
-            font-size: 1rem;
+            color: #94a3b8;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .rehin .app-desc {
+            color: #a8956b;
+        }
+
+        .app-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.05);
+            color: #64748b;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            color: #334155;
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: #475569;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: #94a3b8;
         }
     </style>
 </head>
 <body>
-    <h1>Berkay Apps</h1>
-    <p>Welcome to the official home of Berkay Apps. Creating fun and engaging mobile experiences.</p>
-    
-    <div class="app-card">
-        <div class="app-title">Trick Shot - Ball</div>
-        <div class="app-desc">Draw, aim, and shoot the neon ball into the goal in this physics-based puzzle game!</div>
+
+    <header>
+        <h1>Berkay Apps</h1>
+        <p>Eğlenceli ve bağımlılık yapan mobil deneyimler yaratıyoruz.</p>
+    </header>
+
+    <div class="apps-grid">
+
+        <!-- Trick Shot -->
+        <div class="app-card trick-shot">
+            <div class="app-icon">🎯</div>
+            <div class="app-badge">🎮 Puzzle</div>
+            <div class="app-title">Trick Shot · Ball</div>
+            <div class="app-desc">Neon topu çiz, nişan al ve fizik tabanlı bu bulmaca oyununda hedefe gönder!</div>
+            <div class="app-tags">
+                <span class="tag">Fizik</span>
+                <span class="tag">Bulmaca</span>
+                <span class="tag">Casual</span>
+            </div>
+        </div>
+
+        <!-- Rehin Bölgesi -->
+        <a href="https://berkayozkya.github.io/pawn/" class="app-card rehin">
+            <div class="app-icon">🏪</div>
+            <div class="app-badge">💰 Simülasyon</div>
+            <div class="app-title">Rehin Bölgesi</div>
+            <div class="app-desc">Kendi rehinci dükkanını yönet! Eşyaları değerlendir, rehin kredisi ver, vitrine sun ve nakit akışını koru.</div>
+            <div class="app-tags">
+                <span class="tag">Strateji</span>
+                <span class="tag">Simülasyon</span>
+                <span class="tag">İş Yönetimi</span>
+            </div>
+        </a>
+
     </div>
+
+    <footer>
+        <p>© 2026 Berkay Özkaya</p>
+    </footer>
+
 </body>
 </html>
